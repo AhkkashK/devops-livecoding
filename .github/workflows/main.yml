@@ -21,8 +21,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'  # Use JDK 17 for the project
-          distribution: 'openjdk'  # You can use 'adoptopenjdk' or 'openjdk'
-
+          distribution: 'temurin'  
 
      #finally build your app with the latest command
       - name: Build and test with Maven
