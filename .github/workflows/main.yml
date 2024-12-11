@@ -22,10 +22,8 @@ jobs:
         with:
           java-version: '17'  # Use JDK 17 for the project
           distribution: 'temurin'
-      
-      - name: Navigate to the project directory
-        run: cd simple-api 
 
      #finally build your app with the latest command
       - name: Build and test with Maven
+        working-directory: simple-api
         run: mvn clean verify
