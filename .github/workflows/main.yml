@@ -40,12 +40,8 @@ jobs:
      - name: Checkout code
        uses: actions/checkout@v2.5.0
        
-  # Step for Docker login (authentication)
-     - name: Login to Docker Hub
-       uses: docker/login-action@v2
-       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+     - name: Login to DockerHub
+       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
   
      - name: Build image and push backend
        uses: docker/build-push-action@v3
@@ -54,6 +50,7 @@ jobs:
          context: ./simple-api
          # Note: tags has to be all lower-case
          tags:  ${{secrets.DOCKER_USERNAME}}/tp-devops-simple-api:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
   
      - name: Build image and push database
        uses: docker/build-push-action@v3
@@ -62,6 +59,8 @@ jobs:
          context: ./database
          # Note: tags has to be all lower-case
          tags:  ${{secrets.DOCKER_USERNAME}}/tp-devops-simple-api:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
+         
          
   
      - name: Build image and push httpd
@@ -71,4 +70,5 @@ jobs:
          context: ./http-server
          # Note: tags has to be all lower-case
          tags:  ${{secrets.DOCKER_USERNAME}}/tp-devops-simple-api:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
 
